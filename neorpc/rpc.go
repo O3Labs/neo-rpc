@@ -24,6 +24,8 @@ type NEORPCInterface interface {
 	GetContract(hash string) (GetContractResponse, error)
 	GetApplicationLog(txID string) (GetApplicationLogResponse, error)
 	GetUnclaimed(address string) (GetUnclaimedResponse, error)
+	//generic call to return map[string] interface
+	Call(method string, params []interface{}) (map[string]interface{}, error)
 }
 
 type NEORPCClient struct {
@@ -183,6 +185,15 @@ func (n NEORPCClient) GetUnclaimed(address string) (GetUnclaimedResponse, error)
 	params := []interface{}{address}
 	err := n.makeRequest("getunclaimed", params, &response)
 
+	if err != nil {
+		return response, err
+	}
+	return response, nil
+}
+
+func (n NEORPCClient) Call(method string, params []interface{}) (map[string]interface{}, error) {
+	response := map[string]interface{}{}
+	err := n.makeRequest(method, params, &response)
 	if err != nil {
 		return response, err
 	}

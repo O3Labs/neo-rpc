@@ -51,3 +51,14 @@ func TestGetUnclaimed(t *testing.T) {
 	}
 	log.Printf("%v", response)
 }
+
+func TestGenericCall(t *testing.T) {
+	client := neorpc.Client(cliNode)
+	response, err := client.Call("getblock", []interface{}{3623800})
+	if err != nil {
+		log.Printf("err %v", err)
+		t.Fail()
+		return
+	}
+	log.Printf("%v", response)
+}
