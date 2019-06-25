@@ -5,11 +5,9 @@ import (
 	"encoding/json"
 	"io"
 	"io/ioutil"
-	"log"
 	"net"
 	"net/http"
 	"net/url"
-	"sync"
 	"time"
 )
 
@@ -36,30 +34,25 @@ type NEORPCClient struct {
 //make sure all method interface is implemented
 var _ NEORPCInterface = (*NEORPCClient)(nil)
 
-var doOnce sync.Once
-
 func Client(endpoint string) NEORPCClient {
 
-	doOnce.Do(func() {
-		log.Printf("run once init endpoint")
-		u, err := url.Parse(endpoint)
-		if err != nil {
-			panic(err)
-		}
-		var netTransport = &http.Transport{
-			Dial: (&net.Dialer{
-				Timeout: 8 * time.Second,
-			}).Dial,
-			TLSHandshakeTimeout: 8 * time.Second,
-		}
+	u, err := url.Parse(endpoint)
+	if err != nil {
+		panic(err)
+	}
+	var netTransport = &http.Transport{
+		Dial: (&net.Dialer{
+			Timeout: 8 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout: 8 * time.Second,
+	}
 
-		var netClient = &http.Client{
-			Timeout:   time.Second * 20,
-			Transport: netTransport,
-		}
-		SingletonClient = NEORPCClient{Endpoint: *u, httpClient: netClient}
-	})
-	return SingletonClient
+	var netClient = &http.Client{
+		Timeout:   time.Second * 20,
+		Transport: netTransport,
+	}
+
+	return NEORPCClient{Endpoint: *u, httpClient: netClient}
 }
 
 func (n NEORPCClient) makeRequest(method string, params []interface{}, out interface{}) error {
