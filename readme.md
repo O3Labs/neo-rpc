@@ -1,6 +1,6 @@
 # neo-rpc
 
-A Go SDK for neo-cli JSON-RPC.
+A JSON-RPC client for neo-cli.
 
 ## Installation
 ```
