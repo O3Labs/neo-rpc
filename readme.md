@@ -10,7 +10,7 @@ go get github.com/o3labs/neo-rpc
 ## Importing
 ```go
 import (
-    "github.com/o3labs/neo-rpc/neorpc"
+    "github.com/o3labs/neo-rpc/neorpc/neorpc"
 )
 ```
 
