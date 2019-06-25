@@ -18,12 +18,12 @@ import (
 ## Usage
 
 ```go
-	client := neorpc.Client("https://us-east.o3node.org")
-	response, err := client.GetBlock(3623800)
-	if err != nil {
-		log.Printf("err %v", err)
-		return
-	}
-	log.Printf("%v", response)
+client := neorpc.Client("https://us-east.o3node.org")
+response, err := client.GetBlock(3623800)
+if err != nil {
+	log.Printf("err %v", err)
+	return
+}
+log.Printf("%v", response)
 ```
 
