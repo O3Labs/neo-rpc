@@ -2,12 +2,12 @@
 
 A Go SDK for neo-cli JSON-RPC.
 
+## Installation
+```
+go get github.com/o3labs/neo-rpc
+```
 
-# Installation
-> go get github.com/o3labs/neo-rpc
-
-
-# Importing
+## Importing
 ```go
 import (
     "github.com/o3labs/neo-rpc/neorpc"
@@ -15,7 +15,7 @@ import (
 ```
 
 
-# Usage
+## Usage
 
 ```go
 	client := neorpc.Client("https://us-east.o3node.org")
