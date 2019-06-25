@@ -6,6 +6,7 @@ type GetAllTransactionsResponse struct {
 	Result []struct {
 		Txid       string `json:"txid"`
 		Size       int    `json:"size"`
+		O3Type     int    `json:"o3type"`
 		Type       string `json:"type"`
 		Version    int    `json:"version"`
 		Attributes []struct {
@@ -36,11 +37,15 @@ type GetAllTransactionsResponse struct {
 		Blockindex int    `json:"blockindex"`
 		Blockhash  string `json:"blockhash"`
 		Blocktime  int    `json:"blocktime"`
+		BlockIndex int    `json:"blockindex"`
 		Sent       []struct {
 			Timestamp           int    `json:"timestamp"`
 			AssetHash           string `json:"asset_hash"`
-			TransferFromAddress string `json:"transfer_from_address"`
+			AssetName           string `json:"asset_name"`
+			AssetSymbol         string `json:"asset_symbol"`
+			AssetDecimals       int    `json:"asset_decimals"`
 			TransferToAddress   string `json:"transfer_to_address"`
+			TransferFromAddress string `json:"transfer_from_address"`
 			Amount              string `json:"amount"`
 			BlockIndex          int    `json:"block_index"`
 			TransferNotifyIndex int    `json:"transfer_notify_index"`
@@ -49,8 +54,11 @@ type GetAllTransactionsResponse struct {
 		Received []struct {
 			Timestamp           int    `json:"timestamp"`
 			AssetHash           string `json:"asset_hash"`
-			TransferFromAddress string `json:"transfer_from_address"`
+			AssetName           string `json:"asset_name"`
+			AssetSymbol         string `json:"asset_symbol"`
+			AssetDecimals       int    `json:"asset_decimals"`
 			TransferToAddress   string `json:"transfer_to_address"`
+			TransferFromAddress string `json:"transfer_from_address"`
 			Amount              string `json:"amount"`
 			BlockIndex          int    `json:"block_index"`
 			TransferNotifyIndex int    `json:"transfer_notify_index"`

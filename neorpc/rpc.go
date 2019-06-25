@@ -22,6 +22,10 @@ type NEORPCInterface interface {
 	GetContract(hash string) (GetContractResponse, error)
 	GetApplicationLog(txID string) (GetApplicationLogResponse, error)
 	GetUnclaimed(address string) (GetUnclaimedResponse, error)
+	GetClaimable(address string) (GetClaimableResponse, error)
+	GetUnspents(address string) (GetUnspentsResponse, error)
+	GetBlockCount() (GetBlockCountResponse, error)
+
 	//generic call to return map[string] interface
 	Call(method string, params []interface{}) (map[string]interface{}, error)
 }
@@ -35,7 +39,6 @@ type NEORPCClient struct {
 var _ NEORPCInterface = (*NEORPCClient)(nil)
 
 func Client(endpoint string) NEORPCClient {
-
 	u, err := url.Parse(endpoint)
 	if err != nil {
 		panic(err)
@@ -177,6 +180,38 @@ func (n NEORPCClient) GetUnclaimed(address string) (GetUnclaimedResponse, error)
 	response := GetUnclaimedResponse{}
 	params := []interface{}{address}
 	err := n.makeRequest("getunclaimed", params, &response)
+
+	if err != nil {
+		return response, err
+	}
+	return response, nil
+}
+
+func (n *NEORPCClient) GetClaimable(address string) (GetClaimableResponse, error) {
+	response := GetClaimableResponse{}
+	params := []interface{}{address}
+	err := n.makeRequest("getclaimable", params, &response)
+	if err != nil {
+		return response, err
+	}
+	return response, nil
+}
+
+func (n NEORPCClient) GetUnspents(address string) (GetUnspentsResponse, error) {
+	response := GetUnspentsResponse{}
+	params := []interface{}{address}
+	err := n.makeRequest("getunspents", params, &response)
+
+	if err != nil {
+		return response, err
+	}
+	return response, nil
+}
+
+func (n NEORPCClient) GetBlockCount() (GetBlockCountResponse, error) {
+	response := GetBlockCountResponse{}
+	params := []interface{}{}
+	err := n.makeRequest("getblockcount", params, &response)
 
 	if err != nil {
 		return response, err
